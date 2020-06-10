@@ -1,6 +1,6 @@
 package com.denisbeck.tmdbmovieapp.models
 
-data class PopularMovies(
+data class Movies(
     val results: List<Movie>
 )
 

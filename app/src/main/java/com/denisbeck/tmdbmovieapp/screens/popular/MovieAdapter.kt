@@ -9,8 +9,13 @@ import com.denisbeck.tmdbmovieapp.R
 import com.denisbeck.tmdbmovieapp.models.Movie
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieAdapter(val movieData: MutableList<Movie>, val positionListener: (Boolean) -> Unit) :
+class MovieAdapter(private val movieData: List<Movie>) :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+
+    companion object {
+        private val TAG = MovieAdapter::class.java.simpleName
+    }
+
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,7 +27,6 @@ class MovieAdapter(val movieData: MutableList<Movie>, val positionListener: (Boo
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movie = movieData[position]
-        if (position >= movieData.size - 3) positionListener(true)
         holder.view.run {
             Glide.with(context).load("https://image.tmdb.org/t/p/w500${movie.poster_path}").into(item_movie_poster)
             item_movie_name.text = movie.title
