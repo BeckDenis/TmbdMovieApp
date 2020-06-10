@@ -36,6 +36,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <include layout="@layout/progress_bar" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/popular_header_guideline"
         android:layout_width="match_parent"
