@@ -25,38 +25,40 @@ class PopularFragment : Fragment(R.layout.fragment_popular) {
         private val TAG = PopularFragment::class.java.simpleName
     }
 
+    private lateinit var movieAdapter: MovieAdapter
+    private var page = 1
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        movieAdapter = MovieAdapter(mutableListOf()) {
+            page++
+            getPopularMovies(page)
+        }
         val snapHelper = PagerSnapHelper()
         val linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         snapHelper.attachToRecyclerView(popular_recycler_view)
         popular_recycler_view.run {
+            adapter = movieAdapter
             layoutManager = linearLayoutManager
             addItemDecoration(OffsetItemDecoration(requireContext()))
         }
-        getPopularMovies()
+        getPopularMovies(page)
     }
 
-    private fun getPopularMovies() {
+    private fun getPopularMovies(page: Int) {
         val request = ServiceBuilder.buildService(PopularMoviesApi::class.java)
-        val call = request.getPopularMovies(BuildConfig.API_KEY)
+        val call = request.getPopularMovies(BuildConfig.API_KEY, page)
 
         call.enqueue(object : Callback<PopularMovies> {
             override fun onResponse(call: Call<PopularMovies>, response: Response<PopularMovies>) {
                 Log.d(TAG, "onResponse: ")
                 if (response.isSuccessful){
                     Log.d(TAG, "onResponse: success")
-//                    progress_bar.visibility = View.GONE
-//                    recyclerView.apply {
-//                        setHasFixedSize(true)
-//                        layoutManager = LinearLayoutManager(this@MainActivity)
-//                        adapter = MoviesAdapter(response.body()!!.results)
-//                    }
                     response.body()?.let {
-                        popular_recycler_view.adapter = MovieAdapter(it.results.reversed()
-//                            .filterIndexed { index, _ -> index % 2 == 0 }
-                        )
+                        movieAdapter.movieData += it.results
+                        movieAdapter.notifyDataSetChanged()
                     }
+
                 }
             }
             override fun onFailure(call: Call<PopularMovies>, t: Throwable) {
