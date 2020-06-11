@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface PopularMoviesApi {
     @GET("3/movie/popular")
-    suspend fun getPopularMovies(@Query("page") page: Int): Movies
+    suspend fun getPopularMovies(@Query("page") page: Int?, @Query("with_genres") genre: Int?): Movies
 }
 
 interface GenresApi {

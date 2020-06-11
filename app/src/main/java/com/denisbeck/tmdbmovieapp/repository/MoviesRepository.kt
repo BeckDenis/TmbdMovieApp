@@ -18,9 +18,9 @@ class MoviesRepository(
     private val genresApi: GenresApi
 ) {
 
-    suspend fun getPopularMovies(page: Int): Resource<Movies> {
+    suspend fun getPopularMovies(page: Int?, genre: Int?): Resource<Movies> {
         return try {
-            val response = popularMoviesApi.getPopularMovies(page)
+            val response = popularMoviesApi.getPopularMovies(page, genre)
             return responseHandler.handleSuccess(response)
         } catch (e: Exception) {
             responseHandler.handleException(e)

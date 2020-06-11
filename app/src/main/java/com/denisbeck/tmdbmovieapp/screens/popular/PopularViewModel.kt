@@ -1,6 +1,7 @@
 package com.denisbeck.tmdbmovieapp.screens.popular
 
 import androidx.lifecycle.*
+import com.denisbeck.tmdbmovieapp.models.Genre
 import com.denisbeck.tmdbmovieapp.models.Genres
 import com.denisbeck.tmdbmovieapp.models.Movies
 import com.denisbeck.tmdbmovieapp.networking.Resource
@@ -16,17 +17,30 @@ val viewModelModule = module {
 
 class PopularViewModel(private val moviesRepository: MoviesRepository) : ViewModel() {
 
-    var page = 1
+    private val genre = MutableLiveData<Int?>(null)
 
-    private val _movies = MutableLiveData<Resource<Movies>>()
-    val movies: LiveData<Resource<Movies>>
-        get() = _movies
+    fun updateGenres(genreId: Int) {
+        genre.value = genreId
+    }
 
-    fun getPopularMovies() =
-        viewModelScope.launch(Dispatchers.Default) {
-            _movies.postValue(Resource.loading(null))
-            _movies.postValue(moviesRepository.getPopularMovies(page))
+    var page: Int? = null
+
+    val movies = genre.switchMap { genre ->
+        liveData {
+            emit(Resource.loading(null))
+            emit(moviesRepository.getPopularMovies(page, genre))
         }
+    }
+
+//    private val _movies = MutableLiveData<Resource<Movies>>()
+//    val movies: LiveData<Resource<Movies>>
+//        get() = _movies
+//
+//    fun getPopularMovies() =
+//        viewModelScope.launch(Dispatchers.Default) {
+//            _movies.postValue(Resource.loading(null))
+//            _movies.postValue(moviesRepository.getPopularMovies(page))
+//        }
 
     val genres = liveData {
         emit(moviesRepository.getGenres())

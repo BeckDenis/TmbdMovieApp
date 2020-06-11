@@ -27,15 +27,17 @@ class PopularFragment : Fragment(R.layout.fragment_popular) {
 
     private val viewModel: PopularViewModel by viewModel()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if (savedInstanceState == null) viewModel.getPopularMovies()
-    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        tuneRecyclerView()
         viewModel.movies.observe(viewLifecycleOwner, Observer { checkMoviesStatus(it) })
         viewModel.genres.observe(viewLifecycleOwner, Observer { checkGenresStatus(it) })
+        popular_genres_chips.setOnCheckedChangeListener { _, checkedId ->
+            viewModel.updateGenres(checkedId)
+            Log.d(TAG, "onViewCreated: $checkedId")
+        }
     }
 
     private fun checkGenresStatus(it: Resource<Genres>) {
@@ -86,15 +88,18 @@ class PopularFragment : Fragment(R.layout.fragment_popular) {
 
     private fun updateRecycler(movies: Movies?) {
         movies?.let {
-            val snapHelper = PagerSnapHelper()
-            val linearLayoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            snapHelper.attachToRecyclerView(popular_recycler_view)
-            popular_recycler_view.run {
-                adapter = MovieAdapter(movies.results)
-                layoutManager = linearLayoutManager
-                addItemDecoration(OffsetItemDecoration(requireContext()))
-            }
+            popular_recycler_view.adapter = MovieAdapter(movies.results)
+        }
+    }
+
+    private fun tuneRecyclerView() {
+        val snapHelper = PagerSnapHelper()
+        val linearLayoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        snapHelper.attachToRecyclerView(popular_recycler_view)
+        popular_recycler_view.apply {
+            layoutManager = linearLayoutManager
+            addItemDecoration(OffsetItemDecoration(requireContext()))
         }
     }
 
