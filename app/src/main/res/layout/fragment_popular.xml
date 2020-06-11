@@ -6,6 +6,44 @@
     android:layout_height="match_parent"
     tools:context=".screens.popular.PopularFragment">
 
+    <HorizontalScrollView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/popular_header_guideline">
+
+        <com.google.android.material.chip.ChipGroup
+            android:paddingStart="26dp"
+            android:paddingEnd="26dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:clipToPadding="false"
+            android:id="@+id/popular_genres_chips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:selectionRequired="true"
+            app:singleLine="true"
+            app:singleSelection="true"/>
+
+    </HorizontalScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/popular_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/popular_header_guideline" />
+
+    <include layout="@layout/progress_bar" />
+
     <FrameLayout
         android:layout_width="60dp"
         android:layout_height="0dp"
@@ -24,25 +62,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/popular_recycler_view" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/popular_recycler_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:clipToPadding="false"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toTopOf="@id/popular_header_guideline"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <include layout="@layout/progress_bar" />
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/popular_header_guideline"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.3" />
+        app:layout_constraintGuide_percent="0.33" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

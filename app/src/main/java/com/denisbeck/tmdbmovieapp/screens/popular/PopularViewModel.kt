@@ -1,6 +1,7 @@
 package com.denisbeck.tmdbmovieapp.screens.popular
 
 import androidx.lifecycle.*
+import com.denisbeck.tmdbmovieapp.models.Genres
 import com.denisbeck.tmdbmovieapp.models.Movies
 import com.denisbeck.tmdbmovieapp.networking.Resource
 import com.denisbeck.tmdbmovieapp.repository.MoviesRepository
@@ -13,7 +14,7 @@ val viewModelModule = module {
     viewModel { PopularViewModel(get()) }
 }
 
-class PopularViewModel(private val weatherRepo: MoviesRepository) : ViewModel() {
+class PopularViewModel(private val moviesRepository: MoviesRepository) : ViewModel() {
 
     var page = 1
 
@@ -24,7 +25,11 @@ class PopularViewModel(private val weatherRepo: MoviesRepository) : ViewModel() 
     fun getPopularMovies() =
         viewModelScope.launch(Dispatchers.Default) {
             _movies.postValue(Resource.loading(null))
-            _movies.postValue(weatherRepo.getPopularMovies(page))
+            _movies.postValue(moviesRepository.getPopularMovies(page))
         }
+
+    val genres = liveData {
+        emit(moviesRepository.getGenres())
+    }
 
 }

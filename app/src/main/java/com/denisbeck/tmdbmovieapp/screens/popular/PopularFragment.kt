@@ -9,9 +9,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.denisbeck.tmdbmovieapp.R
 import com.denisbeck.tmdbmovieapp.extensions.showToast
+import com.denisbeck.tmdbmovieapp.models.Genres
 import com.denisbeck.tmdbmovieapp.models.Movies
+import com.denisbeck.tmdbmovieapp.networking.Resource
 import com.denisbeck.tmdbmovieapp.networking.Status
 import com.denisbeck.tmdbmovieapp.screens.OffsetItemDecoration
+import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.fragment_popular.*
 import kotlinx.android.synthetic.main.progress_bar.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -31,15 +34,38 @@ class PopularFragment : Fragment(R.layout.fragment_popular) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.movies.observe(viewLifecycleOwner, Observer { checkMoviesStatus(it) })
+        viewModel.genres.observe(viewLifecycleOwner, Observer { checkGenresStatus(it) })
+    }
 
-        viewModel.movies.observe(viewLifecycleOwner, Observer {
-            when (it.status) {
-                Status.SUCCESS -> updateRecyclerAndShowProgressBar(it.data)
-                Status.ERROR -> showErrorToastAndHideProgressBar(it.message)
-                Status.LOADING -> showProgressBar()
+    private fun checkGenresStatus(it: Resource<Genres>) {
+        when (it.status) {
+            Status.SUCCESS -> updateChipsGroup(it.data)
+            Status.ERROR -> Log.e(TAG, "checkGenresStatus: ${it.message}")
+            Status.LOADING -> {
             }
+        }
+    }
 
-        })
+    private fun updateChipsGroup(data: Genres?) {
+        data?.let {
+            it.genres.forEach {
+                val view = layoutInflater.inflate(R.layout.item_genre, null, false)
+                val chip = (view as Chip).apply {
+                    text = it.name
+                    id = it.id
+                }
+                popular_genres_chips.addView(chip)
+            }
+        }
+    }
+
+    private fun checkMoviesStatus(it: Resource<Movies>) {
+        when (it.status) {
+            Status.SUCCESS -> updateRecyclerAndShowProgressBar(it.data)
+            Status.ERROR -> showErrorToastAndHideProgressBar(it.message)
+            Status.LOADING -> showProgressBar()
+        }
     }
 
     private fun showErrorToastAndHideProgressBar(message: String?) {

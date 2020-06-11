@@ -9,7 +9,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 val networkModule = module {
     factory { AuthInterceptor() }
     factory { provideOkHttpClient(get()) }
-    factory { provideForecastApi(get()) }
+    factory { providePopularMoviesApi(get()) }
+    factory { provideGenresApi(get()) }
     single { provideRetrofit(get()) }
     factory { ResponseHandler() }
 }
@@ -23,4 +24,6 @@ fun provideOkHttpClient(authInterceptor: AuthInterceptor): OkHttpClient {
     return OkHttpClient().newBuilder().addInterceptor(authInterceptor).build()
 }
 
-fun provideForecastApi(retrofit: Retrofit): PopularMoviesApi = retrofit.create(PopularMoviesApi::class.java)
+fun providePopularMoviesApi(retrofit: Retrofit): PopularMoviesApi = retrofit.create(PopularMoviesApi::class.java)
+
+fun provideGenresApi(retrofit: Retrofit): GenresApi = retrofit.create(GenresApi::class.java)

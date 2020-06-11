@@ -32,19 +32,19 @@
         android:id="@+id/item_movie_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/allerta"
         android:gravity="center"
         android:maxLines="1"
-        android:textColor="@color/item_movie_name"
-        android:textSize="28sp"
+        android:textColor="@color/primary_text"
+        android:textSize="24sp"
         tools:text="Ford v Ferrari" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="60dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -58,8 +58,9 @@
             android:id="@+id/item_movie_vote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/item_movie_vote"
-            android:textSize="18sp"
+            android:fontFamily="@font/allerta"
+            android:textColor="@color/secondary_text"
+            android:textSize="16sp"
             tools:text="8.2" />
     </LinearLayout>
 

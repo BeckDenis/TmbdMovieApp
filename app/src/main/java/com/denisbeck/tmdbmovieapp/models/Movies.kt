@@ -1,11 +1,10 @@
 package com.denisbeck.tmdbmovieapp.models
 
-data class Movies(
-    val results: List<Movie>
-)
+data class Movies(val results: List<Movie>)
 
 data class Movie(
-    val id: Int,    val overview: String,
+    val id: Int,
+    val overview: String,
     val poster_path: String,
     val release_date: String,
     val title: String,
