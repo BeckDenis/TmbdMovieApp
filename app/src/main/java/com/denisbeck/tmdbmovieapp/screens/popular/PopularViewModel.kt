@@ -10,12 +10,12 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelModule = module {
-    viewModel { ExampleViewModel(get()) }
+    viewModel { PopularViewModel(get()) }
 }
 
-class ExampleViewModel(private val weatherRepo: MoviesRepository) : ViewModel() {
+class PopularViewModel(private val weatherRepo: MoviesRepository) : ViewModel() {
 
-    private var page = 1
+    var page = 1
 
     private val _movies = MutableLiveData<Resource<Movies>>()
     val movies: LiveData<Resource<Movies>>
@@ -24,7 +24,7 @@ class ExampleViewModel(private val weatherRepo: MoviesRepository) : ViewModel() 
     fun getPopularMovies() =
         viewModelScope.launch(Dispatchers.Default) {
             _movies.postValue(Resource.loading(null))
-            _movies.postValue(weatherRepo.getWeather(page))
+            _movies.postValue(weatherRepo.getPopularMovies(page))
         }
 
 }

@@ -9,6 +9,7 @@ enum class ErrorCodes(val code: Int) {
 }
 
 open class ResponseHandler {
+
     fun <T : Any> handleSuccess(data: T): Resource<T> {
         return Resource.success(data)
     }
@@ -24,9 +25,11 @@ open class ResponseHandler {
     private fun getErrorMessage(code: Int): String {
         return when (code) {
             ErrorCodes.SocketTimeOut.code -> "Timeout"
-            401 -> "Unauthorised"
-            404 -> "Not found"
+            401 -> "Authentication failed: You do not have permissions to access the service."
+            404 -> "Invalid id: The pre-requisite id is invalid or not found."
+            422 -> "Invalid parameters: Your request parameters are incorrect"
             else -> "Something went wrong"
         }
     }
+
 }

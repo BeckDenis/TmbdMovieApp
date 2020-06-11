@@ -1,6 +1,7 @@
 package com.denisbeck.tmdbmovieapp.screens.popular
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -21,7 +22,7 @@ class PopularFragment : Fragment(R.layout.fragment_popular) {
         private val TAG = PopularFragment::class.java.simpleName
     }
 
-    private val viewModel: ExampleViewModel by viewModel()
+    private val viewModel: PopularViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +43,7 @@ class PopularFragment : Fragment(R.layout.fragment_popular) {
     }
 
     private fun showErrorToastAndHideProgressBar(message: String?) {
+        Log.e(TAG, "showErrorToastAndHideProgressBar: $message")
         progress_bar.visibility = View.GONE
         showToast(message)
     }
@@ -51,6 +53,7 @@ class PopularFragment : Fragment(R.layout.fragment_popular) {
     }
 
     private fun updateRecyclerAndShowProgressBar(data: Movies?) {
+        Log.d(TAG, "updateRecyclerAndShowProgressBar: called")
         updateRecycler(data)
         progress_bar.visibility = View.GONE
     }
