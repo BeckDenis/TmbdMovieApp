@@ -36,7 +36,7 @@
         android:fontFamily="@font/allerta"
         android:gravity="center"
         android:maxLines="1"
-        android:textColor="@color/primary_text"
+        android:textColor="@color/primaryText"
         android:textSize="24sp"
         tools:text="Ford v Ferrari" />
 
@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/allerta"
-            android:textColor="@color/secondary_text"
+            android:textColor="@color/secondaryText"
             android:textSize="16sp"
             tools:text="8.2" />
     </LinearLayout>

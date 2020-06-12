@@ -13,7 +13,7 @@ import com.denisbeck.tmdbmovieapp.models.Genres
 import com.denisbeck.tmdbmovieapp.models.Movies
 import com.denisbeck.tmdbmovieapp.networking.Resource
 import com.denisbeck.tmdbmovieapp.networking.Status
-import com.denisbeck.tmdbmovieapp.screens.OffsetItemDecoration
+import com.denisbeck.tmdbmovieapp.utils.OffsetItemDecoration
 import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.fragment_popular.*
 import kotlinx.android.synthetic.main.progress_bar.*
@@ -23,10 +23,10 @@ class PopularFragment : Fragment(R.layout.fragment_popular) {
 
     companion object {
         private val TAG = PopularFragment::class.java.simpleName
+        fun newInstance() = PopularFragment()
     }
 
     private val viewModel: PopularViewModel by viewModel()
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

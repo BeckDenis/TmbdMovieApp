@@ -7,31 +7,33 @@
     tools:context=".screens.popular.PopularFragment">
 
     <HorizontalScrollView
+        android:id="@+id/popular_genres_chips_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:scrollbars="none"
-        android:layout_marginBottom="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/popular_header_guideline">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.chip.ChipGroup
-            android:paddingStart="26dp"
-            android:paddingEnd="26dp"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp"
-            android:clipToPadding="false"
             android:id="@+id/popular_genres_chips"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingStart="26dp"
+            android:paddingTop="6dp"
+            android:paddingEnd="26dp"
+            android:paddingBottom="6dp"
             app:selectionRequired="true"
             app:singleLine="true"
-            app:singleSelection="true"/>
+            app:singleSelection="true" />
 
     </HorizontalScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/popular_recycler_view"
+        android:layout_marginTop="30dp"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
@@ -40,7 +42,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/popular_header_guideline" />
+        app:layout_constraintTop_toBottomOf="@id/popular_genres_chips_container" />
 
     <include layout="@layout/progress_bar" />
 
@@ -61,12 +63,5 @@
         app:layout_constraintBottom_toBottomOf="@id/popular_recycler_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/popular_recycler_view" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/popular_header_guideline"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.33" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

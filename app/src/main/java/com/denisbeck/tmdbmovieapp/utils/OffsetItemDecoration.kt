@@ -1,4 +1,4 @@
-package com.denisbeck.tmdbmovieapp.screens
+package com.denisbeck.tmdbmovieapp.utils
 
 import android.content.Context
 import android.graphics.Point
