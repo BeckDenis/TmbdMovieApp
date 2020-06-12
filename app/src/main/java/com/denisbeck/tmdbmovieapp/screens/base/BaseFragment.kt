@@ -1,8 +1,10 @@
 package com.denisbeck.tmdbmovieapp.screens.base
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.denisbeck.tmdbmovieapp.R
 import com.denisbeck.tmdbmovieapp.screens.boxoffice.BoxOfficeFragment
 import com.denisbeck.tmdbmovieapp.screens.coming.ComingFragment
@@ -13,23 +15,30 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigat
 
 class BaseFragment : Fragment(R.layout.fragment_base) {
 
+    companion object {
+        private val TAG = BaseFragment::class.java.simpleName
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mTitleDataList = listOf("Popular", "Box office", "Coming")
         val commonNavigator = CommonNavigator(requireContext())
-        commonNavigator.adapter = CommonNavAdapter(mTitleDataList) {
-            view_pager.currentItem = it
+        commonNavigator.adapter = CommonNavAdapter(mTitleDataList) { titleId ->
+            view_pager.currentItem = titleId
         }
 
         magic_indicator.navigator = commonNavigator
 
-        val ppp = listOf(
-            PopularFragment.newInstance(),
-            BoxOfficeFragment.newInstance(),
-            ComingFragment.newInstance()
+        val fragments = listOf(
+            PopularFragment { movieId ->
+                val action = BaseFragmentDirections.actionBaseFragmentToDetailFragment(movieId)
+                findNavController().navigate(action)
+            },
+            BoxOfficeFragment(),
+            ComingFragment()
         )
 
-        view_pager.adapter = ViewPagerAdapter(childFragmentManager, ppp)
+        view_pager.adapter = ViewPagerAdapter(childFragmentManager, fragments)
         ViewPagerHelper.bind(magic_indicator, view_pager)
     }
 }

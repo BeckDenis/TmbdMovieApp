@@ -10,8 +10,4 @@ import com.denisbeck.tmdbmovieapp.screens.coming.ComingFragment
 
 class BoxOfficeFragment : Fragment(R.layout.fragment_box_office) {
 
-    companion object{
-        fun newInstance() = BoxOfficeFragment()
-    }
-
 }

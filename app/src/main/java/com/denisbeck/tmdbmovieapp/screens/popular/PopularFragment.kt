@@ -5,9 +5,11 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.denisbeck.tmdbmovieapp.R
+import com.denisbeck.tmdbmovieapp.extensions.addChips
 import com.denisbeck.tmdbmovieapp.extensions.showToast
 import com.denisbeck.tmdbmovieapp.models.Genres
 import com.denisbeck.tmdbmovieapp.models.Movies
@@ -19,15 +21,14 @@ import kotlinx.android.synthetic.main.fragment_popular.*
 import kotlinx.android.synthetic.main.progress_bar.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class PopularFragment : Fragment(R.layout.fragment_popular) {
+class PopularFragment(val clickListener: (Int) -> Unit) : Fragment(R.layout.fragment_popular) {
 
     companion object {
         private val TAG = PopularFragment::class.java.simpleName
-        fun newInstance() = PopularFragment()
+        fun newInstance() = PopularFragment() {}
     }
 
     private val viewModel: PopularViewModel by viewModel()
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,22 +43,9 @@ class PopularFragment : Fragment(R.layout.fragment_popular) {
 
     private fun checkGenresStatus(it: Resource<Genres>) {
         when (it.status) {
-            Status.SUCCESS -> updateChipsGroup(it.data)
+            Status.SUCCESS -> popular_genres_chips.addChips(it.data?.genres, layoutInflater)
             Status.ERROR -> Log.e(TAG, "checkGenresStatus: ${it.message}")
             Status.LOADING -> {
-            }
-        }
-    }
-
-    private fun updateChipsGroup(data: Genres?) {
-        data?.let {
-            it.genres.forEach {
-                val view = layoutInflater.inflate(R.layout.item_genre, null, false)
-                val chip = (view as Chip).apply {
-                    text = it.name
-                    id = it.id
-                }
-                popular_genres_chips.addView(chip)
             }
         }
     }
@@ -88,7 +76,7 @@ class PopularFragment : Fragment(R.layout.fragment_popular) {
 
     private fun updateRecycler(movies: Movies?) {
         movies?.let {
-            popular_recycler_view.adapter = MovieAdapter(movies.results)
+            popular_recycler_view.adapter = MovieAdapter(movies.results) { clickListener(it) }
         }
     }
 

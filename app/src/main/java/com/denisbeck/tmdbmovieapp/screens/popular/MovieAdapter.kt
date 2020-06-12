@@ -4,17 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.denisbeck.tmdbmovieapp.R
+import com.denisbeck.tmdbmovieapp.extensions.insertImageW500
 import com.denisbeck.tmdbmovieapp.models.Movie
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieAdapter(private val movieData: List<Movie>) :
+class MovieAdapter(private val movieData: List<Movie>, val clickListener: (Int) -> Unit) :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
-
-    companion object {
-        private val TAG = MovieAdapter::class.java.simpleName
-    }
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
@@ -28,9 +24,10 @@ class MovieAdapter(private val movieData: List<Movie>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movie = movieData[position]
         holder.view.run {
-            Glide.with(context).load("https://image.tmdb.org/t/p/w500${movie.poster_path}").into(item_movie_poster)
+            item_movie_poster.insertImageW500(movie.poster_path)
             item_movie_name.text = movie.title
             item_movie_vote.text = movie.vote_average.toString()
+            setOnClickListener { clickListener(movie.id) }
         }
     }
 }

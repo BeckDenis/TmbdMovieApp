@@ -5,6 +5,7 @@
     <color name="colorPrimaryDark">#C55871</color>
     <color name="colorAccent">#FE6D8E</color>
     <color name="primaryText">#12153D</color>
+    <color name="grayText">#9A9BB2</color>
     <color name="primaryTextTransparent">#3312153D</color>
     <color name="secondaryText">#434670</color>
     <color name="chipBackground">#BCE4FF</color>

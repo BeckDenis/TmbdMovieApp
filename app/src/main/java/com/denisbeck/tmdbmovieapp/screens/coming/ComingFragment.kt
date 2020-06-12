@@ -5,8 +5,5 @@ import com.denisbeck.tmdbmovieapp.R
 
 class ComingFragment : Fragment(R.layout.fragment_coming) {
 
-    companion object{
-        fun newInstance() = ComingFragment()
-    }
 
 }

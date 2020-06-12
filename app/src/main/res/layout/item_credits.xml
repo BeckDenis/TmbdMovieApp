@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="108dp"
+    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/credits_photo"
+        app:riv_corner_radius="40dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/credits_placeholder"
+        android:paddingEnd="14dp"
+        android:paddingStart="14dp"
+        android:layout_width="108dp"
+        android:layout_height="80dp" />
+
+    <TextView
+        android:id="@+id/credits_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingEnd="14dp"
+        android:paddingStart="14dp"
+        android:maxLines="2"
+        android:textColor="@color/primaryText"
+        android:fontFamily="@font/allerta"
+        android:gravity="center"
+        android:layout_marginTop="12dp"
+        android:textSize="14sp"
+        tools:text="James Mangold"/>
+
+    <TextView
+        android:id="@+id/credits_department"
+        android:layout_width="match_parent"
+        android:paddingEnd="14dp"
+        android:paddingStart="14dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/grayText"
+        android:fontFamily="@font/allerta"
+        android:maxLines="1"
+        android:gravity="center"
+        android:layout_marginTop="4dp"
+        tools:text="Director"/>
+
+
+
+</LinearLayout>

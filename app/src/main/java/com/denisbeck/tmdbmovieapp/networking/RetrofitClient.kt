@@ -11,6 +11,8 @@ val networkModule = module {
     factory { provideOkHttpClient(get()) }
     factory { providePopularMoviesApi(get()) }
     factory { provideGenresApi(get()) }
+    factory { provideMovieApi(get()) }
+    factory { provideCreditsApi(get()) }
     single { provideRetrofit(get()) }
     factory { ResponseHandler() }
 }
@@ -27,3 +29,7 @@ fun provideOkHttpClient(authInterceptor: AuthInterceptor): OkHttpClient {
 fun providePopularMoviesApi(retrofit: Retrofit): PopularMoviesApi = retrofit.create(PopularMoviesApi::class.java)
 
 fun provideGenresApi(retrofit: Retrofit): GenresApi = retrofit.create(GenresApi::class.java)
+
+fun provideMovieApi(retrofit: Retrofit): MovieApi = retrofit.create(MovieApi::class.java)
+
+fun provideCreditsApi(retrofit: Retrofit): CreditsApi = retrofit.create(CreditsApi::class.java)

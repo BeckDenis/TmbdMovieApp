@@ -1,14 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:scrollbars="none"
     tools:context=".screens.detail.DetailFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/detail_poster"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_corner_radius_bottom_left="50dp"
+            app:riv_corner_radius_bottom_right="50dp"
+            tools:src="@drawable/ic_launcher_background" />
+
+        <TextView
+            android:id="@+id/detail_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:fontFamily="@font/allerta"
+            android:gravity="start"
+            android:textColor="@color/primaryText"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="@id/detail_right_guide_line"
+            app:layout_constraintStart_toStartOf="@id/detail_left_guide_line"
+            app:layout_constraintTop_toBottomOf="@id/detail_poster"
+            tools:text="Ford V Ferrari" />
+
+
+        <TextView
+            android:id="@+id/detail_date_release"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/allerta"
+            android:textColor="@color/grayText"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/detail_left_guide_line"
+            app:layout_constraintTop_toBottomOf="@id/detail_title"
+            tools:text="2019" />
+
+        <TextView
+            android:id="@+id/detail_runtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:fontFamily="@font/allerta"
+            android:textColor="@color/grayText"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/detail_date_release"
+            app:layout_constraintStart_toEndOf="@id/detail_date_release"
+            app:layout_constraintTop_toTopOf="@id/detail_date_release"
+            tools:text="1h 32min" />
+
+        <HorizontalScrollView
+            android:id="@+id/detail_genres_chips_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detail_date_release">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/detail_genres_chips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingStart="26dp"
+                android:paddingTop="6dp"
+                android:paddingEnd="26dp"
+                android:paddingBottom="6dp"
+                app:selectionRequired="true"
+                app:singleLine="true"
+                app:singleSelection="true" />
+
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/detail_overview_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:fontFamily="@font/allerta"
+            android:labelFor="@id/detail_overview"
+            android:text="@string/plot_summary"
+            android:textColor="@color/primaryText"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/detail_left_guide_line"
+            app:layout_constraintTop_toBottomOf="@id/detail_genres_chips_container" />
+
+        <TextView
+            android:id="@+id/detail_overview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/allerta"
+            android:gravity="start"
+            android:textColor="@color/grayText"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@id/detail_right_guide_line"
+            app:layout_constraintStart_toStartOf="@id/detail_left_guide_line"
+            app:layout_constraintTop_toBottomOf="@id/detail_overview_label"
+            tools:text="American car designer Carroll Shelby and driver Ken Miles battle corporate interference and the laws of physics to build a revolutionary race car for Ford in order to defeat Ferrari at the 24 Hours of Le Mans in 1966." />
+
+        <TextView
+            android:id="@+id/detail_credits_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:fontFamily="@font/allerta"
+            android:labelFor="@id/detail_credits_recycler"
+            android:text="@string/cast_amp_crew"
+            android:textColor="@color/primaryText"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/detail_left_guide_line"
+            app:layout_constraintTop_toBottomOf="@id/detail_overview" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/detail_credits_recycler"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:paddingStart="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="30dp"
+            android:paddingEnd="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detail_credits_label" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/detail_left_guide_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="26dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/detail_right_guide_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="26dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
