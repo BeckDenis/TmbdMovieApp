@@ -1,7 +1,6 @@
 package com.denisbeck.tmdbmovieapp.screens.base
 
 import android.content.Context
-import android.view.Gravity
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import androidx.core.content.ContextCompat

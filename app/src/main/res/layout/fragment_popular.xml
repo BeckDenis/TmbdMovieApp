@@ -49,7 +49,19 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/popular_genres_chips_container" />
 
-        <include android:id="@+id/popular_progress_bar" layout="@layout/progress_bar" />
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <include android:id="@+id/popular_progress_bar" layout="@layout/progress_bar" />
+
+        </FrameLayout>
+
+
 
         <FrameLayout
             android:layout_width="60dp"

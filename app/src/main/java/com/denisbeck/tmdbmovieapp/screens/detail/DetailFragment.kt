@@ -1,25 +1,23 @@
 package com.denisbeck.tmdbmovieapp.screens.detail
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.denisbeck.tmdbmovieapp.R
-import com.denisbeck.tmdbmovieapp.extensions.addChips
-import com.denisbeck.tmdbmovieapp.extensions.insertImageOriginal
-import com.denisbeck.tmdbmovieapp.extensions.showToast
-import com.denisbeck.tmdbmovieapp.extensions.toRunTime
-import com.denisbeck.tmdbmovieapp.models.Credit
+import com.denisbeck.tmdbmovieapp.extensions.*
 import com.denisbeck.tmdbmovieapp.models.Credits
 import com.denisbeck.tmdbmovieapp.models.Movie
 import com.denisbeck.tmdbmovieapp.networking.Resource
 import com.denisbeck.tmdbmovieapp.networking.Status
-import com.denisbeck.tmdbmovieapp.screens.popular.PopularFragment
 import kotlinx.android.synthetic.main.fragment_detail.*
-import kotlinx.android.synthetic.main.progress_bar.*
+import kotlinx.android.synthetic.main.rating_card.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
 
@@ -29,14 +27,20 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private val viewModel: DetailViewModel by viewModel()
     private val args: DetailFragmentArgs by navArgs()
+    private var displayWidth = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.updateMovieId(args.movieId)
+        val displayMetrics = DisplayMetrics()
+        requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
+        displayWidth = displayMetrics.widthPixels
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //we need 26dp indent but we have round corner which we don't show = (44dp (round corners) - 26dp = 18dp)
+        detail_rating_card.layoutParams.width = displayWidth + (requireContext().dpToPx(18))
         viewModel.run {
             movie.observe(viewLifecycleOwner, Observer { checkMovieStatus(it) })
             credits.observe(viewLifecycleOwner, Observer { checkCreditsStatus(it) })
@@ -75,6 +79,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private fun updateView(data: Movie?) {
         Log.d(TAG, "updateView: $data")
+        showRatingCard()
         data?.let { movie ->
             detail_poster.insertImageOriginal(movie.poster_path) {
                 detail_progress_bar.visibility = View.GONE
@@ -84,7 +89,17 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             detail_overview.text = movie.overview
             detail_runtime.text = movie.runtime.toRunTime(resources)
             detail_title.text = movie.title
+            detail_vote.text = getString(R.string.vote, movie.vote_average)
+            detail_vote_number.text = movie.vote_count.toString()
         }
+    }
+
+    private fun showRatingCard() {
+        val distance = requireContext().dpToPx(26).toFloat() - displayWidth
+        val animator = ObjectAnimator.ofFloat(detail_rating_card, View.TRANSLATION_X, distance).apply {
+            duration = 1000
+        }
+        animator.start()
     }
 
     private fun showErrorToastAndHideProgressBar(message: String?) {

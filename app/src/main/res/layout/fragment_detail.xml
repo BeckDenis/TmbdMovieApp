@@ -24,15 +24,19 @@
             app:riv_corner_radius_bottom_right="@dimen/poster_corner_radius"
             tools:src="@drawable/ic_launcher_background" />
 
-        <FrameLayout
-            app:layout_constraintTop_toTopOf="@id/detail_poster"
-            app:layout_constraintStart_toStartOf="@id/detail_poster"
-            app:layout_constraintEnd_toEndOf="@id/detail_poster"
-            app:layout_constraintBottom_toBottomOf="@id/detail_poster"
-            android:layout_width="0dp"
-            android:layout_height="0dp">
+        <include android:id="@+id/detail_rating_card" layout="@layout/rating_card" />
 
-            <include android:id="@+id/detail_progress_bar" layout="@layout/progress_bar" />
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/detail_poster"
+            app:layout_constraintEnd_toEndOf="@id/detail_poster"
+            app:layout_constraintStart_toStartOf="@id/detail_poster"
+            app:layout_constraintTop_toTopOf="@id/detail_poster">
+
+            <include
+                android:id="@+id/detail_progress_bar"
+                layout="@layout/progress_bar" />
 
         </FrameLayout>
 
@@ -48,15 +52,14 @@
             app:layout_constraintTop_toBottomOf="@id/detail_poster"
             tools:text="Ford V Ferrari" />
 
-
         <TextView
             android:id="@+id/detail_date_release"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             android:layout_weight="1"
+            android:textAppearance="@style/smallerText"
             android:textColor="@color/grayText"
-            android:textAppearance="@style/smallestText"
             app:layout_constraintStart_toStartOf="@id/detail_left_guide_line"
             app:layout_constraintTop_toBottomOf="@id/detail_title"
             tools:text="2019" />
@@ -66,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:textAppearance="@style/smallestText"
+            android:textAppearance="@style/smallerText"
             android:textColor="@color/grayText"
             app:layout_constraintBottom_toBottomOf="@id/detail_date_release"
             app:layout_constraintStart_toEndOf="@id/detail_date_release"
@@ -105,8 +108,8 @@
             android:layout_marginTop="36dp"
             android:labelFor="@id/detail_overview"
             android:text="@string/plot_summary"
-            android:textColor="@color/primaryText"
             android:textAppearance="@style/MediumText"
+            android:textColor="@color/primaryText"
             app:layout_constraintStart_toStartOf="@id/detail_left_guide_line"
             app:layout_constraintTop_toBottomOf="@id/detail_genres_chips_container" />
 
@@ -116,8 +119,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="13dp"
             android:gravity="start"
+            android:textAppearance="@style/smallerText"
             android:textColor="@color/grayText"
-            android:textAppearance="@style/smallestText"
             app:layout_constraintEnd_toEndOf="@id/detail_right_guide_line"
             app:layout_constraintStart_toStartOf="@id/detail_left_guide_line"
             app:layout_constraintTop_toBottomOf="@id/detail_overview_label"
@@ -130,8 +133,8 @@
             android:layout_marginTop="36dp"
             android:labelFor="@id/detail_credits_recycler"
             android:text="@string/cast_amp_crew"
-            android:textColor="@color/primaryText"
             android:textAppearance="@style/MediumText"
+            android:textColor="@color/primaryText"
             app:layout_constraintStart_toStartOf="@id/detail_left_guide_line"
             app:layout_constraintTop_toBottomOf="@id/detail_overview" />
 

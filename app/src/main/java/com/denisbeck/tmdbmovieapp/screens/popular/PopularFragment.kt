@@ -62,7 +62,7 @@ class PopularFragment(val clickListener: (Int) -> Unit) : Fragment(R.layout.frag
     }
 
     private fun showProgressBar() {
-        if (viewModel.movies.value?.data == null) popular_progress_bar.visibility = View.VISIBLE
+        if (popular_recycler_view.adapter == null) popular_progress_bar.visibility = View.VISIBLE
     }
 
     private fun updateRecyclerAndShowProgressBar(data: Movies?) {
