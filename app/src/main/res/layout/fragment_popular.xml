@@ -1,67 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:fillViewport="true"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".screens.popular.PopularFragment">
+    android:layout_height="0dp">
 
-    <HorizontalScrollView
-        android:id="@+id/popular_genres_chips_container"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:scrollbars="none"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        tools:context=".screens.popular.PopularFragment">
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/popular_genres_chips"
+        <HorizontalScrollView
+            android:id="@+id/popular_genres_chips_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/popular_genres_chips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingStart="26dp"
+                android:paddingTop="6dp"
+                android:paddingEnd="26dp"
+                android:paddingBottom="6dp"
+                app:selectionRequired="true"
+                app:singleLine="true"
+                app:singleSelection="true" />
+
+        </HorizontalScrollView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/popular_recycler_view"
+            android:layout_marginTop="44dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
-            android:paddingStart="26dp"
-            android:paddingTop="6dp"
-            android:paddingEnd="26dp"
-            android:paddingBottom="6dp"
-            app:selectionRequired="true"
-            app:singleLine="true"
-            app:singleSelection="true" />
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/popular_genres_chips_container" />
 
-    </HorizontalScrollView>
+        <include layout="@layout/progress_bar" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/popular_recycler_view"
-        android:layout_marginTop="44dp"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:clipToPadding="false"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/popular_genres_chips_container" />
+        <FrameLayout
+            android:layout_width="60dp"
+            android:layout_height="0dp"
+            android:background="@drawable/left_gradient"
+            android:translationZ="1dp"
+            app:layout_constraintBottom_toBottomOf="@id/popular_recycler_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/popular_recycler_view" />
 
-    <include layout="@layout/progress_bar" />
+        <FrameLayout
+            android:layout_width="60dp"
+            android:layout_height="0dp"
+            android:background="@drawable/right_gradient"
+            android:translationZ="1dp"
+            app:layout_constraintBottom_toBottomOf="@id/popular_recycler_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/popular_recycler_view" />
 
-    <FrameLayout
-        android:layout_width="60dp"
-        android:layout_height="0dp"
-        android:background="@drawable/left_gradient"
-        android:translationZ="1dp"
-        app:layout_constraintBottom_toBottomOf="@id/popular_recycler_view"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/popular_recycler_view" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <FrameLayout
-        android:layout_width="60dp"
-        android:layout_height="0dp"
-        android:background="@drawable/right_gradient"
-        android:translationZ="1dp"
-        app:layout_constraintBottom_toBottomOf="@id/popular_recycler_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/popular_recycler_view" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
