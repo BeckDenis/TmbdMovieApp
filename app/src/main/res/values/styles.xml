@@ -9,20 +9,35 @@
     <style name="Chip" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">4dp</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">@color/secondaryText</item>
         <item name="chipBackgroundColor">@color/chip_bg_state_list</item>
         <item name="chipMinTouchTargetSize">0dp</item>
-        <item name="textStartPadding">12dp</item>
-        <item name="textEndPadding">12dp</item>
-        <item name="android:paddingTop">4dp</item>
-        <item name="android:paddingBottom">8dp</item>
+        <item name="textStartPadding">19dp</item>
+        <item name="textEndPadding">19dp</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">7dp</item>
     </style>
 
-    <style name="chipTextappearance" parent="TextAppearance.MaterialComponents.Chip">
-        <item name="android:textSize">16sp</item>
+    <style name="smallestText">
         <item name="android:fontFamily">@font/allerta</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="smallText">
+        <item name="android:fontFamily">@font/allerta</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="MediumText">
+        <item name="android:fontFamily">@font/allerta</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="large_text">
+        <item name="android:fontFamily">@font/allerta</item>
+        <item name="android:textColor">@color/primaryText</item>
+        <item name="android:textSize">26sp</item>
     </style>
 
 </resources>

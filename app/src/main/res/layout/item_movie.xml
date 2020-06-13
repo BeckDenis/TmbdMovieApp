@@ -2,9 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="260dp"
+    android:layout_width="290dp"
     android:layout_height="match_parent"
-
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
@@ -16,7 +15,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_weight="1"
-        app:cardCornerRadius="32dp"
+        app:cardCornerRadius="@dimen/poster_corner_radius"
         app:cardElevation="5dp">
 
         <ImageView
@@ -24,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher_round"
+            tools:src="@mipmap/ic_launcher_round"
             android:contentDescription="@string/poster_description" />
     </androidx.cardview.widget.CardView>
 
@@ -32,19 +31,17 @@
         android:id="@+id/item_movie_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/allerta"
+        android:layout_marginTop="22dp"
         android:gravity="center"
         android:maxLines="1"
-        android:textColor="@color/primaryText"
-        android:textSize="24sp"
-        tools:text="Ford v Ferrari" />
+        tools:text="Ford v Ferrari"
+        android:textAppearance="@style/large_text" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="81dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -58,10 +55,9 @@
             android:id="@+id/item_movie_vote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/allerta"
             android:textColor="@color/secondaryText"
-            android:textSize="16sp"
-            tools:text="8.2" />
+            tools:text="8.2"
+            android:textAppearance="@style/smallText" />
     </LinearLayout>
 
 

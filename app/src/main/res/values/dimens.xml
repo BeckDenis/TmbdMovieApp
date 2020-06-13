@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="poster_corner_radius">40dp</dimen>
+    <dimen name="credit_horiz_padding">11dp</dimen>
+    <dimen name="credit_width">88dp</dimen>
+</resources>
