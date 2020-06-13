@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.denisbeck.tmdbmovieapp.R
@@ -16,7 +15,6 @@ import com.denisbeck.tmdbmovieapp.models.Movies
 import com.denisbeck.tmdbmovieapp.networking.Resource
 import com.denisbeck.tmdbmovieapp.networking.Status
 import com.denisbeck.tmdbmovieapp.utils.OffsetItemDecoration
-import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.fragment_popular.*
 import kotlinx.android.synthetic.main.progress_bar.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -25,7 +23,6 @@ class PopularFragment(val clickListener: (Int) -> Unit) : Fragment(R.layout.frag
 
     companion object {
         private val TAG = PopularFragment::class.java.simpleName
-        fun newInstance() = PopularFragment() {}
     }
 
     private val viewModel: PopularViewModel by viewModel()
@@ -60,18 +57,18 @@ class PopularFragment(val clickListener: (Int) -> Unit) : Fragment(R.layout.frag
 
     private fun showErrorToastAndHideProgressBar(message: String?) {
         Log.e(TAG, "showErrorToastAndHideProgressBar: $message")
-        progress_bar.visibility = View.GONE
+        popular_progress_bar.visibility = View.GONE
         showToast(message)
     }
 
     private fun showProgressBar() {
-        progress_bar.visibility = View.VISIBLE
+        if (viewModel.movies.value?.data == null) popular_progress_bar.visibility = View.VISIBLE
     }
 
     private fun updateRecyclerAndShowProgressBar(data: Movies?) {
         Log.d(TAG, "updateRecyclerAndShowProgressBar: called")
         updateRecycler(data)
-        progress_bar.visibility = View.GONE
+        popular_progress_bar.visibility = View.GONE
     }
 
     private fun updateRecycler(movies: Movies?) {

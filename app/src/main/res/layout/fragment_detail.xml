@@ -24,6 +24,18 @@
             app:riv_corner_radius_bottom_right="@dimen/poster_corner_radius"
             tools:src="@drawable/ic_launcher_background" />
 
+        <FrameLayout
+            app:layout_constraintTop_toTopOf="@id/detail_poster"
+            app:layout_constraintStart_toStartOf="@id/detail_poster"
+            app:layout_constraintEnd_toEndOf="@id/detail_poster"
+            app:layout_constraintBottom_toBottomOf="@id/detail_poster"
+            android:layout_width="0dp"
+            android:layout_height="0dp">
+
+            <include android:id="@+id/detail_progress_bar" layout="@layout/progress_bar" />
+
+        </FrameLayout>
+
         <TextView
             android:id="@+id/detail_title"
             android:layout_width="0dp"

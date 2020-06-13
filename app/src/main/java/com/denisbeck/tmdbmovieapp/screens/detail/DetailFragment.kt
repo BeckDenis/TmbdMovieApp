@@ -9,13 +9,16 @@ import androidx.navigation.fragment.navArgs
 import com.denisbeck.tmdbmovieapp.R
 import com.denisbeck.tmdbmovieapp.extensions.addChips
 import com.denisbeck.tmdbmovieapp.extensions.insertImageOriginal
+import com.denisbeck.tmdbmovieapp.extensions.showToast
 import com.denisbeck.tmdbmovieapp.extensions.toRunTime
 import com.denisbeck.tmdbmovieapp.models.Credit
 import com.denisbeck.tmdbmovieapp.models.Credits
 import com.denisbeck.tmdbmovieapp.models.Movie
 import com.denisbeck.tmdbmovieapp.networking.Resource
 import com.denisbeck.tmdbmovieapp.networking.Status
+import com.denisbeck.tmdbmovieapp.screens.popular.PopularFragment
 import kotlinx.android.synthetic.main.fragment_detail.*
+import kotlinx.android.synthetic.main.progress_bar.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
@@ -40,6 +43,18 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         }
     }
 
+    private fun checkMovieStatus(resource: Resource<Movie>) {
+        when (resource.status) {
+            Status.SUCCESS -> updateView(resource.data)
+            Status.ERROR -> {
+                showErrorToastAndHideProgressBar(resource.message)
+            }
+            Status.LOADING -> {
+                showProgressBar()
+            }
+        }
+    }
+
     private fun checkCreditsStatus(resource: Resource<Credits>) {
         Log.d(TAG, "checkCreditsStatus: ${resource.status}")
         Log.d(TAG, "checkCreditsStatus: ${resource.message}")
@@ -58,26 +73,28 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         }
     }
 
-    private fun checkMovieStatus(resource: Resource<Movie>) {
-        when (resource.status) {
-            Status.SUCCESS -> updateView(resource.data)
-            Status.ERROR -> {
-            }
-            Status.LOADING -> {
-            }
-        }
-    }
-
     private fun updateView(data: Movie?) {
         Log.d(TAG, "updateView: $data")
         data?.let { movie ->
-            detail_poster.insertImageOriginal(movie.poster_path)
+            detail_poster.insertImageOriginal(movie.poster_path) {
+                detail_progress_bar.visibility = View.GONE
+            }
             detail_date_release.text = movie.release_date.substring(0..3)
             detail_genres_chips.addChips(movie.genres, layoutInflater, isCheckable = false)
             detail_overview.text = movie.overview
             detail_runtime.text = movie.runtime.toRunTime(resources)
             detail_title.text = movie.title
         }
+    }
+
+    private fun showErrorToastAndHideProgressBar(message: String?) {
+        Log.e(TAG, "showErrorToastAndHideProgressBar: $message")
+        detail_progress_bar.visibility = View.GONE
+        showToast(message)
+    }
+
+    private fun showProgressBar() {
+        detail_progress_bar.visibility = View.VISIBLE
     }
 
 }

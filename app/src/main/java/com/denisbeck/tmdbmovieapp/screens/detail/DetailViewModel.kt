@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
+import com.denisbeck.tmdbmovieapp.networking.Resource
 import com.denisbeck.tmdbmovieapp.repository.MoviesRepository
 
 
@@ -17,6 +18,7 @@ class DetailViewModel(private val moviesRepository: MoviesRepository) : ViewMode
 
     val movie = movieId.switchMap { id ->
         liveData {
+            emit(Resource.loading(null))
             emit(moviesRepository.getMovie(id))
         }
     }
