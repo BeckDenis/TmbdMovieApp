@@ -80,7 +80,7 @@
             android:id="@+id/detail_genres_chips_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="10dp"
             android:scrollbars="none"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -90,22 +90,20 @@
                 android:id="@+id/detail_genres_chips"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:paddingStart="26dp"
-                android:paddingTop="6dp"
-                android:paddingEnd="26dp"
-                android:paddingBottom="6dp"
+                style="@style/chipGroup"
+                app:chipSpacingHorizontal="16dp"
                 app:selectionRequired="true"
                 app:singleLine="true"
                 app:singleSelection="true" />
 
         </HorizontalScrollView>
 
+        <!--Chip group have padding 6dp, so we enter 30dp instead of 36dp for marginTop-->
         <TextView
             android:id="@+id/detail_overview_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="30dp"
             android:labelFor="@id/detail_overview"
             android:text="@string/plot_summary"
             android:textAppearance="@style/MediumText"
