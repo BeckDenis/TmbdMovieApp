@@ -10,13 +10,13 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import com.denisbeck.tmdbmovieapp.R
 import com.denisbeck.tmdbmovieapp.extensions.addChips
 import com.denisbeck.tmdbmovieapp.extensions.showToast
+import com.denisbeck.tmdbmovieapp.models.Genre
 import com.denisbeck.tmdbmovieapp.models.Genres
 import com.denisbeck.tmdbmovieapp.models.Movies
 import com.denisbeck.tmdbmovieapp.networking.Resource
 import com.denisbeck.tmdbmovieapp.networking.Status
 import com.denisbeck.tmdbmovieapp.utils.OffsetItemDecoration
 import kotlinx.android.synthetic.main.fragment_popular.*
-import kotlinx.android.synthetic.main.progress_bar.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PopularFragment(val clickListener: (Int) -> Unit) : Fragment(R.layout.fragment_popular) {
@@ -40,10 +40,18 @@ class PopularFragment(val clickListener: (Int) -> Unit) : Fragment(R.layout.frag
 
     private fun checkGenresStatus(it: Resource<Genres>) {
         when (it.status) {
-            Status.SUCCESS -> popular_genres_chips.addChips(it.data?.genres, layoutInflater)
+            Status.SUCCESS -> updateChipGroup(it)
             Status.ERROR -> Log.e(TAG, "checkGenresStatus: ${it.message}")
             Status.LOADING -> {
             }
+        }
+    }
+
+    private fun updateChipGroup(it: Resource<Genres>) {
+        popular_genres_chips.run {
+            addChips(listOf(Genre(id = 0, name = getString(R.string.first_chip))), layoutInflater)
+            addChips(it.data?.genres, layoutInflater)
+            check(viewModel.chipCheckedId)
         }
     }
 
@@ -88,4 +96,8 @@ class PopularFragment(val clickListener: (Int) -> Unit) : Fragment(R.layout.frag
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.chipCheckedId = popular_genres_chips.checkedChipId
+    }
 }

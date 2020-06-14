@@ -24,18 +24,20 @@ fun ImageView.insertImageOriginal(posterId: String?, listener: (() -> Unit)? = n
         .into(this)
 }
 
+
 fun ChipGroup.addChips(
-    data: List<Genre>?, layoutInflater: LayoutInflater, isCheckable: Boolean = true
-) {
+    data: List<Genre>?, layoutInflater: LayoutInflater, isCheckable: Boolean = true, isChecked: Boolean = false) {
+    fun chip() = layoutInflater.inflate(R.layout.item_genre, null, false)
     data?.let {
         it.forEach {
-            val view = layoutInflater.inflate(R.layout.item_genre, null, false)
-            val chip = (view as Chip).apply {
+            val chip = (chip() as Chip).apply {
                 text = it.name
                 id = it.id
                 setCheckable(isCheckable)
+                setChecked(isChecked)
             }
             this.addView(chip)
         }
     }
+
 }

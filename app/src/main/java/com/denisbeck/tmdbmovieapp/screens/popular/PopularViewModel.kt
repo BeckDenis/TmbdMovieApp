@@ -1,14 +1,9 @@
 package com.denisbeck.tmdbmovieapp.screens.popular
 
 import androidx.lifecycle.*
-import com.denisbeck.tmdbmovieapp.models.Genre
-import com.denisbeck.tmdbmovieapp.models.Genres
-import com.denisbeck.tmdbmovieapp.models.Movies
 import com.denisbeck.tmdbmovieapp.networking.Resource
 import com.denisbeck.tmdbmovieapp.repository.MoviesRepository
 import com.denisbeck.tmdbmovieapp.screens.detail.DetailViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -22,10 +17,12 @@ class PopularViewModel(private val moviesRepository: MoviesRepository) : ViewMod
     private val genre = MutableLiveData<Int?>(null)
 
     fun updateGenres(genreId: Int) {
-        genre.value = genreId
+        genre.value = if (genreId == 0) null else genreId
     }
 
-    var page: Int? = null
+    val genres = liveData {
+        emit(moviesRepository.getGenres())
+    }
 
     val movies = genre.switchMap { genre ->
         liveData {
@@ -34,8 +31,6 @@ class PopularViewModel(private val moviesRepository: MoviesRepository) : ViewMod
         }
     }
 
-    val genres = liveData {
-        emit(moviesRepository.getGenres())
-    }
-
+    var page: Int? = null
+    var chipCheckedId: Int = 0
 }

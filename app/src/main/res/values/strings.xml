@@ -5,6 +5,7 @@
     <string name="poster_description">movie poster</string>
     <string name="star_description">vote icon</string>
     <string name="plot_summary">Plot Summary</string>
+    <string name="first_chip">All</string>
     <string name="runtime">%dh %dmin</string>
     <string name="vote">%.1f/10</string>
     <string name="cast_amp_crew"><![CDATA[Cast & Crew]]></string>

@@ -1,6 +1,5 @@
 package com.denisbeck.tmdbmovieapp.extensions
 
-import android.content.Context
 import android.content.res.Resources
 import com.denisbeck.tmdbmovieapp.R
 
