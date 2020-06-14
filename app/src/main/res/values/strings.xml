@@ -9,6 +9,6 @@
     <string name="runtime">%dh %dmin</string>
     <string name="vote">%.1f/10</string>
     <string name="cast_amp_crew"><![CDATA[Cast & Crew]]></string>
-    <string name="rate_this">Rate This</string>
+    <string name="like_it">Like It</string>
     <string name="metascore">Metascore</string>
 </resources>

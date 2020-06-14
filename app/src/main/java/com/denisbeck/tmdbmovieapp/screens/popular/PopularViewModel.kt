@@ -1,5 +1,6 @@
 package com.denisbeck.tmdbmovieapp.screens.popular
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.denisbeck.tmdbmovieapp.networking.Resource
 import com.denisbeck.tmdbmovieapp.repository.MoviesRepository
@@ -14,10 +15,16 @@ val viewModelModule = module {
 
 class PopularViewModel(private val moviesRepository: MoviesRepository) : ViewModel() {
 
+    companion object {
+        private val TAG = PopularViewModel::class.java.simpleName
+    }
+
     private val genre = MutableLiveData<Int?>(null)
 
     fun updateGenres(genreId: Int) {
-        genre.value = if (genreId == 0) null else genreId
+        if (genreId != chipCheckedId) {
+            genre.value = if (genreId == 0) null else genreId
+        }
     }
 
     val genres = liveData {
