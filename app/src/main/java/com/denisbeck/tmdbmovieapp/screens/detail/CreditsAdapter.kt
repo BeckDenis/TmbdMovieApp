@@ -23,8 +23,7 @@ class CreditsAdapter(private val credits: List<Credit>) : RecyclerView.Adapter<C
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val person = credits[position]
         holder.view.run {
-//            credits_name.text = person.name
-            credits_name.text = "James Mangold"
+            credits_name.text = person.name
             credits_department.text = person.caption
             if (person.profile_path.isNullOrBlank()) {
                 credits_photo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.credits_placeholder))
