@@ -59,6 +59,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:tag="@string/image_tag_border"
                 android:id="@+id/rating_card_like_image"
                 android:layout_width="26dp"
                 android:layout_height="26dp"

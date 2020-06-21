@@ -9,7 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.denisbeck.tmdbmovieapp.R
-import com.denisbeck.tmdbmovieapp.anim.rotateAnimation
+import com.denisbeck.tmdbmovieapp.anim.starAnimation
+import com.denisbeck.tmdbmovieapp.anim.translateX
 import com.denisbeck.tmdbmovieapp.extensions.*
 import com.denisbeck.tmdbmovieapp.models.Credits
 import com.denisbeck.tmdbmovieapp.models.Movie
@@ -97,16 +98,12 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     }
 
     private fun startAnimation() {
-        rating_card_like_image.rotateAnimation(R.drawable.star, R.drawable.star_border)
+        rating_card_like_image.starAnimation()
     }
 
     private fun showRatingCard() {
         val distance = requireContext().dpToPx(26).toFloat() - displayWidth
-        val animator =
-            ObjectAnimator.ofFloat(detail_rating_card, View.TRANSLATION_X, distance).apply {
-                duration = 1000
-            }
-        animator.start()
+        detail_rating_card.translateX(distance)
     }
 
     private fun showErrorToastAndHideProgressBar(message: String?) {

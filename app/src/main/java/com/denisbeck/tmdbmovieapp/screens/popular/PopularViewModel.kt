@@ -8,11 +8,6 @@ import com.denisbeck.tmdbmovieapp.screens.detail.DetailViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-val viewModelModule = module {
-    viewModel { PopularViewModel(get()) }
-    viewModel { DetailViewModel(get()) }
-}
-
 class PopularViewModel(private val moviesRepository: MoviesRepository) : ViewModel() {
 
     companion object {

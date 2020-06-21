@@ -9,6 +9,10 @@ import com.denisbeck.tmdbmovieapp.models.Genre
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
+fun ImageView.insertDrawable(ref: Int) {
+    Glide.with(context).load(ref).into(this)
+}
+
 fun ImageView.insertImageW185(posterId: String?) {
     Glide.with(context).load("https://image.tmdb.org/t/p/w185$posterId").into(this)
 }

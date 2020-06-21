@@ -6,11 +6,6 @@ import com.denisbeck.tmdbmovieapp.models.Genres
 import com.denisbeck.tmdbmovieapp.models.Movie
 import com.denisbeck.tmdbmovieapp.models.Movies
 import com.denisbeck.tmdbmovieapp.networking.*
-import org.koin.dsl.module
-
-val popularMoviesModule = module {
-    factory { MoviesRepository(get(), get(), get(), get(), get()) }
-}
 
 class MoviesRepository(
     private val popularMoviesApi: PopularMoviesApi,
