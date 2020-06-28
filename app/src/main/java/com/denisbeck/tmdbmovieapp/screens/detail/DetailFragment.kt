@@ -1,6 +1,5 @@
 package com.denisbeck.tmdbmovieapp.screens.detail
 
-import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log

@@ -7,7 +7,7 @@ import com.denisbeck.tmdbmovieapp.screens.popular.PopularViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-val popularMoviesModule = module {
+val moviesModule = module {
     factory { MoviesRepository(get(), get(), get(), get(), get()) }
 }
 

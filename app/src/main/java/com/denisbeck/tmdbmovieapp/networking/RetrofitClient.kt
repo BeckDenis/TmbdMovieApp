@@ -2,7 +2,6 @@ package com.denisbeck.tmdbmovieapp.networking
 
 import com.denisbeck.tmdbmovieapp.BuildConfig
 import okhttp3.OkHttpClient
-import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

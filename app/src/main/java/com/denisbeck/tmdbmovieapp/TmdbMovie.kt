@@ -2,7 +2,7 @@ package com.denisbeck.tmdbmovieapp
 
 import android.app.Application
 import com.denisbeck.tmdbmovieapp.di.networkModule
-import com.denisbeck.tmdbmovieapp.di.popularMoviesModule
+import com.denisbeck.tmdbmovieapp.di.moviesModule
 import com.denisbeck.tmdbmovieapp.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -15,7 +15,7 @@ class TmdbMovie : Application() {
         startKoin {
             androidLogger()
             androidContext(this@TmdbMovie)
-            modules(listOf(viewModelModule, networkModule, popularMoviesModule))
+            modules(listOf(viewModelModule, networkModule, moviesModule))
         }
     }
 }
