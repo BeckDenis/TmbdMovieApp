@@ -9,16 +9,16 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.denisbeck.tmdbmovieapp.R
 import com.denisbeck.tmdbmovieapp.anim.starAnimation
-import com.denisbeck.tmdbmovieapp.anim.translateX
 import com.denisbeck.tmdbmovieapp.extensions.*
 import com.denisbeck.tmdbmovieapp.models.Credits
 import com.denisbeck.tmdbmovieapp.models.Movie
 import com.denisbeck.tmdbmovieapp.networking.Resource
 import com.denisbeck.tmdbmovieapp.networking.Status
+import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.fragment_detail.*
+import kotlinx.android.synthetic.main.fragment_detail.rating_card
 import kotlinx.android.synthetic.main.rating_card.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
 
@@ -41,12 +41,24 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //we need 26dp indent but we have round corner which we don't show = (44dp (round corners) - 26dp = 18dp)
-        detail_rating_card.layoutParams.width = displayWidth + (requireContext().dpToPx(18))
+        rating_card.layoutParams.width = displayWidth + (requireContext().dpToPx(18))
+        motion_layout.getConstraintSet(R.id.start)?.constrainWidth(R.id.rating_card, displayWidth + (requireContext().dpToPx(18)))
+        motion_layout.getConstraintSet(R.id.end)?.constrainWidth(R.id.rating_card, displayWidth + (requireContext().dpToPx(18)))
         rating_card_like_image.setOnClickListener { startAnimation() }
         viewModel.run {
             movie.observe(viewLifecycleOwner, Observer { checkMovieStatus(it) })
             credits.observe(viewLifecycleOwner, Observer { checkCreditsStatus(it) })
         }
+        coordinateMotion()
+    }
+
+    private fun coordinateMotion() {
+        val listener = AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
+            val seekPosition = -verticalOffset / appbar_layout.totalScrollRange.toFloat()
+            motion_layout.progress = seekPosition
+        }
+
+        appbar_layout.addOnOffsetChangedListener(listener)
     }
 
     private fun checkMovieStatus(resource: Resource<Movie>) {
@@ -81,7 +93,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private fun updateView(data: Movie?) {
         Log.d(TAG, "updateView: $data")
-        showRatingCard()
         data?.let { movie ->
             detail_poster.insertImageOriginal(movie.poster_path) {
                 detail_progress_bar.visibility = View.GONE
@@ -98,11 +109,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private fun startAnimation() {
         rating_card_like_image.starAnimation()
-    }
-
-    private fun showRatingCard() {
-        val distance = requireContext().dpToPx(26).toFloat() - displayWidth
-        detail_rating_card.translateX(distance)
     }
 
     private fun showErrorToastAndHideProgressBar(message: String?) {

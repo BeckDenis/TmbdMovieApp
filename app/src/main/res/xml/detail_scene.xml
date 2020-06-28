@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        app:constraintSetEnd="@id/end"
+        app:constraintSetStart="@id/start" />
+
+    <ConstraintSet android:id="@+id/start">
+
+        <Constraint
+            android:id="@id/rating_card"
+            android:layout_height="88dp"
+            android:layout_marginTop="238dp"
+            android:translationX="26dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@id/detail_back"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="6dp"
+            android:padding="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@id/detail_poster"
+            android:layout_height="392dp"
+            android:alpha="1.0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@id/detail_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="82dp"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+
+        <Constraint
+            android:id="@id/rating_card"
+            android:layout_height="88dp"
+            android:layout_marginTop="238dp"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <Constraint
+            android:id="@id/detail_back"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="6dp"
+            android:padding="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Constraint
+            android:id="@id/detail_poster"
+            android:layout_height="392dp"
+            android:alpha="0.0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@id/detail_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="62dp"
+            android:layout_marginTop="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/detail_back"
+            app:layout_constraintTop_toTopOf="@id/detail_back" />
+
+    </ConstraintSet>
+
+</MotionScene>

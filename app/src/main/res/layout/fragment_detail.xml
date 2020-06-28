@@ -1,171 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:scrollbars="none"
+    android:layout_height="match_parent"
     tools:context=".screens.detail.DetailFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/detail_poster"
+            <androidx.constraintlayout.motion.widget.MotionLayout
+                android:id="@+id/motion_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="56dp"
+                app:layoutDescription="@xml/detail_scene"
+                app:layout_scrollFlags="scroll|enterAlways|snap|exitUntilCollapsed">
+
+                <TextView
+                    android:id="@+id/detail_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="82dp"
+                    android:layout_marginStart="26dp"
+                    android:textAppearance="@style/large_text"
+                    tools:text="Ford V Ferrari" />
+
+               <include layout="@layout/rating_card" android:id="@+id/rating_card"/>
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/detail_poster"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    app:riv_corner_radius_bottom_left="@dimen/poster_corner_radius"
+                    app:riv_corner_radius_bottom_right="@dimen/poster_corner_radius"
+                    tools:src="@drawable/ic_launcher_background"
+                    android:paddingBottom="110dp"/>
+
+                <FrameLayout
+                    android:id="@+id/detail_progress_bar_container"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="@id/detail_poster"
+                    app:layout_constraintEnd_toEndOf="@id/detail_poster"
+                    app:layout_constraintStart_toStartOf="@id/detail_poster"
+                    app:layout_constraintTop_toTopOf="@id/detail_poster"
+                    android:layout_marginBottom="110dp">
+
+                    <include
+                        android:id="@+id/detail_progress_bar"
+                        layout="@layout/progress_bar" />
+
+                </FrameLayout>
+
+                <ImageView
+                    android:id="@+id/detail_back"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="6dp"
+                    android:padding="18dp"
+                    android:src="@drawable/ic_back"/>
+
+
+            </androidx.constraintlayout.motion.widget.MotionLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="282dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:riv_corner_radius_bottom_left="@dimen/poster_corner_radius"
-            app:riv_corner_radius_bottom_right="@dimen/poster_corner_radius"
-            tools:src="@drawable/ic_launcher_background" />
+            android:layout_height="wrap_content">
 
-        <include android:id="@+id/detail_rating_card" layout="@layout/rating_card" />
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="@id/detail_poster"
-            app:layout_constraintEnd_toEndOf="@id/detail_poster"
-            app:layout_constraintStart_toStartOf="@id/detail_poster"
-            app:layout_constraintTop_toTopOf="@id/detail_poster">
-
-            <include
-                android:id="@+id/detail_progress_bar"
-                layout="@layout/progress_bar" />
-
-        </FrameLayout>
-
-        <TextView
-            android:id="@+id/detail_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="82dp"
-            android:gravity="start"
-            android:textAppearance="@style/large_text"
-            app:layout_constraintEnd_toEndOf="@id/detail_right_guide_line"
-            app:layout_constraintStart_toStartOf="@id/detail_left_guide_line"
-            app:layout_constraintTop_toBottomOf="@id/detail_poster"
-            tools:text="Ford V Ferrari" />
-
-        <TextView
-            android:id="@+id/detail_date_release"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:layout_weight="1"
-            android:textAppearance="@style/smallerText"
-            android:textColor="@color/grayText"
-            app:layout_constraintStart_toStartOf="@id/detail_left_guide_line"
-            app:layout_constraintTop_toBottomOf="@id/detail_title"
-            tools:text="2019" />
-
-        <TextView
-            android:id="@+id/detail_runtime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:textAppearance="@style/smallerText"
-            android:textColor="@color/grayText"
-            app:layout_constraintBottom_toBottomOf="@id/detail_date_release"
-            app:layout_constraintStart_toEndOf="@id/detail_date_release"
-            app:layout_constraintTop_toTopOf="@id/detail_date_release"
-            tools:text="1h 32min" />
-
-        <HorizontalScrollView
-            android:id="@+id/detail_genres_chips_container"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:scrollbars="none"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_date_release">
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/detail_genres_chips"
+            <TextView
+                android:id="@+id/detail_date_release"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/chipGroup"
-                app:chipSpacingHorizontal="16dp"
-                app:selectionRequired="true"
-                app:singleLine="true"
-                app:singleSelection="true" />
+                android:layout_marginTop="7dp"
+                android:layout_weight="1"
+                android:textAppearance="@style/smallerText"
+                android:textColor="@color/grayText"
+                app:layout_constraintStart_toStartOf="@id/detail_left_guide_line"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="2019" />
 
-        </HorizontalScrollView>
+            <TextView
+                android:id="@+id/detail_runtime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:textAppearance="@style/smallerText"
+                android:textColor="@color/grayText"
+                app:layout_constraintBottom_toBottomOf="@id/detail_date_release"
+                app:layout_constraintStart_toEndOf="@id/detail_date_release"
+                app:layout_constraintTop_toTopOf="@id/detail_date_release"
+                tools:text="1h 32min" />
 
-        <!--Chip group have padding 6dp, so we enter 30dp instead of 36dp for marginTop-->
-        <TextView
-            android:id="@+id/detail_overview_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:labelFor="@id/detail_overview"
-            android:text="@string/plot_summary"
-            android:textAppearance="@style/MediumText"
-            android:textColor="@color/primaryText"
-            app:layout_constraintStart_toStartOf="@id/detail_left_guide_line"
-            app:layout_constraintTop_toBottomOf="@id/detail_genres_chips_container" />
+            <HorizontalScrollView
+                android:id="@+id/detail_genres_chips_container"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_date_release">
 
-        <TextView
-            android:id="@+id/detail_overview"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="13dp"
-            android:gravity="start"
-            android:textAppearance="@style/smallerText"
-            android:textColor="@color/grayText"
-            app:layout_constraintEnd_toEndOf="@id/detail_right_guide_line"
-            app:layout_constraintStart_toStartOf="@id/detail_left_guide_line"
-            app:layout_constraintTop_toBottomOf="@id/detail_overview_label"
-            tools:text="American car designer Carroll Shelby and driver Ken Miles battle corporate interference and the laws of physics to build a revolutionary race car for Ford in order to defeat Ferrari at the 24 Hours of Le Mans in 1966." />
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/detail_genres_chips"
+                    style="@style/chipGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipSpacingHorizontal="16dp"
+                    app:selectionRequired="true"
+                    app:singleLine="true"
+                    app:singleSelection="true" />
 
-        <TextView
-            android:id="@+id/detail_credits_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:labelFor="@id/detail_credits_recycler"
-            android:text="@string/cast_amp_crew"
-            android:textAppearance="@style/MediumText"
-            android:textColor="@color/primaryText"
-            app:layout_constraintStart_toStartOf="@id/detail_left_guide_line"
-            app:layout_constraintTop_toBottomOf="@id/detail_overview" />
+            </HorizontalScrollView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/detail_credits_recycler"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="13dp"
-            android:layout_marginBottom="30dp"
-            android:clipToPadding="false"
-            android:orientation="horizontal"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_credits_label" />
+            <!--Chip group have padding 6dp, so we enter 30dp instead of 36dp for marginTop-->
+            <TextView
+                android:id="@+id/detail_overview_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:labelFor="@id/detail_overview"
+                android:text="@string/plot_summary"
+                android:textAppearance="@style/MediumText"
+                android:textColor="@color/primaryText"
+                app:layout_constraintStart_toStartOf="@id/detail_left_guide_line"
+                app:layout_constraintTop_toBottomOf="@id/detail_genres_chips_container" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/detail_left_guide_line"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="26dp" />
+            <TextView
+                android:id="@+id/detail_overview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:gravity="start"
+                android:textAppearance="@style/smallerText"
+                android:textColor="@color/grayText"
+                app:layout_constraintEnd_toEndOf="@id/detail_right_guide_line"
+                app:layout_constraintStart_toStartOf="@id/detail_left_guide_line"
+                app:layout_constraintTop_toBottomOf="@id/detail_overview_label"
+                tools:text="American car designer Carroll Shelby and driver Ken Miles battle corporate interference and the laws of physics to build a revolutionary race car for Ford in order to defeat Ferrari at the 24 Hours of Le Mans in 1966." />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/detail_right_guide_line"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="26dp" />
+            <TextView
+                android:id="@+id/detail_credits_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:labelFor="@id/detail_credits_recycler"
+                android:text="@string/cast_amp_crew"
+                android:textAppearance="@style/MediumText"
+                android:textColor="@color/primaryText"
+                app:layout_constraintStart_toStartOf="@id/detail_left_guide_line"
+                app:layout_constraintTop_toBottomOf="@id/detail_overview" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/detail_credits_recycler"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:layout_marginBottom="30dp"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_credits_label" />
 
-</ScrollView>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/detail_left_guide_line"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="26dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/detail_right_guide_line"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="26dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
