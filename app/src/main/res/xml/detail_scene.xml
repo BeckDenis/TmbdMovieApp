@@ -71,10 +71,10 @@
 
         <Constraint
             android:id="@id/detail_title"
-            android:layout_width="match_parent"
+            android:layout_width="1000dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="62dp"
             android:layout_marginTop="0dp"
+            app:layout_constraintStart_toEndOf="@id/detail_back"
             app:layout_constraintBottom_toBottomOf="@id/detail_back"
             app:layout_constraintTop_toTopOf="@id/detail_back" />
 

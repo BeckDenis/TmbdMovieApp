@@ -40,16 +40,21 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //we need 26dp indent but we have round corner which we don't show = (44dp (round corners) - 26dp = 18dp)
-        rating_card.layoutParams.width = displayWidth + (requireContext().dpToPx(18))
-        motion_layout.getConstraintSet(R.id.start)?.constrainWidth(R.id.rating_card, displayWidth + (requireContext().dpToPx(18)))
-        motion_layout.getConstraintSet(R.id.end)?.constrainWidth(R.id.rating_card, displayWidth + (requireContext().dpToPx(18)))
+        setRatingCardWidth()
+        detail_back.setOnClickListener { requireActivity().onBackPressed() }
         rating_card_like_image.setOnClickListener { startAnimation() }
         viewModel.run {
             movie.observe(viewLifecycleOwner, Observer { checkMovieStatus(it) })
             credits.observe(viewLifecycleOwner, Observer { checkCreditsStatus(it) })
         }
         coordinateMotion()
+    }
+
+    private fun setRatingCardWidth() {
+        //we need 26dp indent but we have round corner which we don't show = (44dp (round corners) - 26dp = 18dp)
+        val width = displayWidth + (requireContext().dpToPx(18))
+        motion_layout.getConstraintSet(R.id.start)?.constrainWidth(R.id.rating_card, width)
+        motion_layout.getConstraintSet(R.id.end)?.constrainWidth(R.id.rating_card, width)
     }
 
     private fun coordinateMotion() {
