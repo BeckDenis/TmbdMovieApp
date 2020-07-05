@@ -15,17 +15,20 @@ import com.denisbeck.tmdbmovieapp.models.Genres
 import com.denisbeck.tmdbmovieapp.models.Movies
 import com.denisbeck.tmdbmovieapp.networking.Resource
 import com.denisbeck.tmdbmovieapp.networking.Status
+import com.denisbeck.tmdbmovieapp.screens.base.SharedViewModel
 import com.denisbeck.tmdbmovieapp.utils.OffsetItemDecoration
 import kotlinx.android.synthetic.main.fragment_popular.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class PopularFragment(val clickListener: (Int) -> Unit) : Fragment(R.layout.fragment_popular) {
+class PopularFragment : Fragment(R.layout.fragment_popular) {
 
     companion object {
         private val TAG = PopularFragment::class.java.simpleName
     }
 
     private val viewModel: PopularViewModel by viewModel()
+    private val sharedViewModel: SharedViewModel by sharedViewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -81,7 +84,9 @@ class PopularFragment(val clickListener: (Int) -> Unit) : Fragment(R.layout.frag
 
     private fun updateRecycler(movies: Movies?) {
         movies?.let {
-            popular_recycler_view.adapter = MovieAdapter(movies.results) { clickListener(it) }
+            popular_recycler_view.adapter = MovieAdapter(movies.results) {
+                sharedViewModel.updateMovieId(it)
+            }
         }
     }
 

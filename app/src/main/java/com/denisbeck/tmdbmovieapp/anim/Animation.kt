@@ -15,8 +15,8 @@ import kotlinx.android.synthetic.main.fragment_detail.*
 
 fun ImageView.starAnimation() {
     rotate()
+    isClickable = false
     scaleTo(1.2f) {
-        isClickable = false
         changeDrawable(R.drawable.star_border, R.drawable.star)
         scaleTo(1f) {
             isClickable = true
@@ -37,12 +37,6 @@ private fun ImageView.scaleTo(scale: Float, duration: Long = 300, listenerEnd: (
         this.duration = duration
         start()
     }
-}
-
-fun View.translateX(distance: Float) {
-    ObjectAnimator.ofFloat(this, View.TRANSLATION_X, distance).apply {
-        duration = 1000
-    }.start()
 }
 
 private fun ImageView.getScaleObjectAnimator(x: Float, y: Float): ObjectAnimator {

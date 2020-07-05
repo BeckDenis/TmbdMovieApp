@@ -2,6 +2,7 @@ package com.denisbeck.tmdbmovieapp.di
 
 import com.denisbeck.tmdbmovieapp.networking.*
 import com.denisbeck.tmdbmovieapp.repository.MoviesRepository
+import com.denisbeck.tmdbmovieapp.screens.base.SharedViewModel
 import com.denisbeck.tmdbmovieapp.screens.detail.DetailViewModel
 import com.denisbeck.tmdbmovieapp.screens.popular.PopularViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -25,4 +26,5 @@ val networkModule = module {
 val viewModelModule = module {
     viewModel { PopularViewModel(get()) }
     viewModel { DetailViewModel(get()) }
+    viewModel { SharedViewModel() }
 }
